@@ -14,6 +14,7 @@ from selenium.webdriver.common.keys import Keys
 Отзывы, предложения, советы приветствуются.
 """
 
+
 def get_content_page(html):
     """Функция сбора данных с прогружаемой страницы"""
     soup = BeautifulSoup(html, 'html.parser')
