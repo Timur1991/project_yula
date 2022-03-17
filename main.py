@@ -11,6 +11,7 @@ from selenium.webdriver.common.keys import Keys
 Для работоспособности не забудьте скачать сам драйвер, под свою версию браузера Chrome.
 Если столкнетесь с капчей, пишите разберемся, в данном примере эту функцию не реализовал
 По всем возникшим вопросам, можете писать в группу https://vk.com/happython
+Ссылка на статью: https://vk.com/@happython-sbor-dannyh-s-torgovoi-ploschadki-ula-python-parser
 Отзывы, предложения, советы приветствуются.
 """
 
@@ -69,7 +70,8 @@ def get_content_page(html):
 def parser(url, data_list_count):
     """Основная функция, сам парсер"""
     options = webdriver.ChromeOptions()
-    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0")
+    options.add_argument("user-agent=Mozilla/5.0")
+    options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument('--log-level=3')
     options.add_argument("--headless")
 
@@ -102,12 +104,13 @@ def parser(url, data_list_count):
                 break
             last_height = new_height
             print(f'Собрано {len(data_list_pages)} позиций')
+            # проверка на количество выдачи
             if len(data_list_pages) >= int(data_list_count):
                 break
         return data_list_pages
 
     except Exception as ex:
-        print('Не предвиденная ошибка:', ex)
+        print(f'Не предвиденная ошибка: {ex}')
         browser.close()
         browser.quit()
     browser.close()
